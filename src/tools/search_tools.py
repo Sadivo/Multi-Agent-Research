@@ -1,14 +1,13 @@
 """
 Tavily 搜尋工具包裝
-Task 3: 包裝 TavilySearchResults
 """
 
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 
 
-def get_search_tool() -> TavilySearchResults:
+def get_search_tool() -> TavilySearch:
     """回傳已設定的 Tavily 搜尋工具實例。"""
-    return TavilySearchResults(
+    return TavilySearch(
         max_results=5,
         search_depth="advanced",
     )

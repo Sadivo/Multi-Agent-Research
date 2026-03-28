@@ -36,8 +36,16 @@ def supervisor_node(state: AgentState) -> dict:
     response = llm.invoke(prompt)
     raw_content = response.content
 
+    # 移除 Gemini 可能回傳的 Markdown code fence
+    cleaned = raw_content.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.split("```")[1]
+        if cleaned.startswith("json"):
+            cleaned = cleaned[4:]
+        cleaned = cleaned.strip()
+
     try:
-        parsed = json.loads(raw_content)
+        parsed = json.loads(cleaned)
         task_list = parsed["tasks"]
     except (json.JSONDecodeError, KeyError, TypeError) as e:
         logger.warning(

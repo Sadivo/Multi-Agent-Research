@@ -46,6 +46,11 @@ def search_node(state: AgentState) -> dict:
         async def search_one(task: str) -> list:
             try:
                 raw = await asyncio.to_thread(search_tool.invoke, task)
+                # 新版 TavilySearch 回傳 {"query": ..., "results": [...]}
+                if isinstance(raw, dict):
+                    items = raw.get("results", [])
+                else:
+                    items = raw  # 舊版相容
                 return [
                     {
                         "title": r.get("title", ""),
@@ -53,7 +58,8 @@ def search_node(state: AgentState) -> dict:
                         "content": r.get("content", ""),
                         "score": r.get("score", 0.0),
                     }
-                    for r in raw
+                    for r in items
+                    if isinstance(r, dict)
                 ]
             except Exception as e:
                 logger.error("Tavily API 錯誤（任務：%s）：%s", task, e)

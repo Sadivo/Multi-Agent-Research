@@ -9,6 +9,7 @@ import pathlib
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
+import config  # noqa: F401 — 觸發 load_dotenv()
 from agents.search import search_node
 
 
