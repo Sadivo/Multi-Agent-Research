@@ -1,6 +1,6 @@
 # Multi-Agent Research Pipeline
 
-基於 LangGraph 的多代理人研究系統，能自動將研究問題分解為子任務、平行搜尋、整合分析，並產出結構化 Markdown 報告。
+一個簡單的範例，基於 LangGraph 的多代理人研究系統，能自動將研究問題分解為子任務、平行搜尋、整合分析，並產出結構化 Markdown 報告。
 
 ## 功能特色
 
